@@ -335,7 +335,7 @@ GEM
       ffi (~> 1.0)
     rbs (2.8.4)
     rbtree (0.4.6)
-    rdoc (6.6.2)
+    rdoc (6.6.3.1)
       psych (>= 4.0.0)
     redis (5.0.8)
       redis-client (>= 0.17.0)

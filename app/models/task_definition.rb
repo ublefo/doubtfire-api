@@ -48,8 +48,6 @@ class TaskDefinition < ApplicationRecord
 
   validates :weighting, presence: true
 
-  after_initialize :reset_numbas_configs_if_no_zip
-
   include TaskDefinitionTiiModule
   include TaskDefinitionSimilarityModule
 
@@ -539,7 +537,7 @@ class TaskDefinition < ApplicationRecord
       FileUtils.rm task_numbas_data
     end
 
-    reset_numbas_configs_if_no_zip()
+    reset_numbas_config()
   end
 
   # Get the path to the task sheet - using the current abbreviation
@@ -665,11 +663,9 @@ class TaskDefinition < ApplicationRecord
     end
   end
 
-  def reset_numbas_configs_if_no_zip()
-    if !has_numbas_data?
-      self.has_enabled_numbas_test = false
-      self.has_numbas_time_delay = false
-      self.numbas_attempt_limit = 0
-    end
+  def reset_numbas_config()
+    self.has_enabled_numbas_test = false
+    self.has_numbas_time_delay = false
+    self.numbas_attempt_limit = 0
   end
 end

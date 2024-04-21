@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_05_055902) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_21_011821) do
   create_table "activity_types", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "abbreviation", null: false
@@ -211,7 +211,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_055902) do
     t.boolean "extension_granted"
     t.bigint "assessor_id"
     t.bigint "task_status_id"
-    t.integer "extension_weeks"
+    t.integer "extension_days"
     t.string "extension_response"
     t.bigint "reply_to_id"
     t.bigint "overseer_assessment_id"
@@ -471,7 +471,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_055902) do
     t.boolean "enable_sync_enrolments", default: true, null: false
     t.bigint "draft_task_definition_id"
     t.boolean "allow_student_extension_requests", default: true, null: false
-    t.integer "extension_weeks_on_resubmit_request", default: 1, null: false
+    t.integer "extension_days_on_resubmit_request", default: 7, null: false
     t.boolean "allow_student_change_tutorial", default: true, null: false
     t.boolean "assessment_enabled", default: true
     t.bigint "overseer_image_id"

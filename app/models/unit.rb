@@ -16,58 +16,58 @@ class Unit < ApplicationRecord
   #
   def self.permissions
     # What can students do with units?
-    student_role_permissions = [
-      :get_unit
-    ]
+    student_role_read_permissions = [:get_unit]
+    student_role_write_permissions = []
+    student_role_permissions = student_role_read_permissions | student_role_write_permissions
+
     # What can tutors do with units?
-    tutor_role_permissions = [
-      :get_unit,
-      :get_students,
-      :enrol_student,
-      :provide_feedback,
-      :download_stats,
-      :download_unit_csv,
-      :download_grades,
-      :exceed_capacity
-    ]
+    tutor_role_read_permissions =
+      student_role_read_permissions | [
+        :get_students,
+        :download_stats,
+        :download_unit_csv,
+        :download_grades
+      ]
+
+    tutor_role_write_permissions =
+      student_role_write_permissions | [
+        :enrol_student,
+        :provide_feedback,
+        :exceed_capacity
+      ]
+
+    tutor_role_permissions = tutor_role_read_permissions | tutor_role_write_permissions
 
     # What can convenors do with units?
-    convenor_role_permissions = [
-      :get_unit,
-      :get_students,
-      :enrol_student,
-      :upload_csv,
-      :download_unit_csv,
-      :update,
-      :employ_staff,
-      :add_tutorial,
-      :add_task_def,
-      :provide_feedback,
-      :change_project_enrolment,
-      :download_stats,
-      :download_grades,
-      :rollover_unit,
-      :exceed_capacity,
-      :perform_overseer_assessment_test
-    ]
+    convenor_role_read_permissions =
+      tutor_role_read_permissions | []
+
+    convenor_role_write_permissions =
+      tutor_role_write_permissions | [
+        :upload_csv,
+        :update,
+        :employ_staff,
+        :add_tutorial,
+        :add_task_def,
+        :change_project_enrolment,
+        :rollover_unit,
+        :perform_overseer_assessment_test
+      ]
+
+    convenor_role_permissions = convenor_role_read_permissions | convenor_role_write_permissions
 
     # What can admin do with units?
-    admin_role_permissions = [
-      :get_unit,
-      :get_students,
-      :enrol_student,
-      :upload_csv,
-      :rollover_unit,
-      :change_project_enrolment,
-      :update,
-      :employ_staff,
-      :add_tutorial,
-      :add_task_def,
-      :download_stats,
-      :download_unit_csv,
-      :download_grades,
-      :exceed_capacity
-    ]
+    admin_role_read_permissions =
+      convenor_role_read_permissions | []
+
+    admin_role_write_permissions =
+      # admin has LESS permissions than a convenor
+      convenor_role_write_permissions - [
+        :provide_feedback,
+        :perform_overseer_assessment_test
+      ]
+
+    admin_role_permissions = admin_role_read_permissions | admin_role_write_permissions
 
     # What can other users do with units?
     nil_role_permissions = []

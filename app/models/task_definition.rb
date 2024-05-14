@@ -405,9 +405,9 @@ class TaskDefinition < ApplicationRecord
     result.upload_requirements         = JSON.parse(row[:upload_requirements]) unless row[:upload_requirements].nil?
     result.due_date                    = due_date
 
-    result.scorm_enabled     = %w(Yes y Y yes true TRUE 1).include? "#{row[:scorm_enabled]}".strip
-    result.scorm_time_delay_enabled       = %w(Yes y Y yes true TRUE 1).include? "#{row[:scorm_time_delay_enabled]}".strip
-    result.scorm_attempt_limit        = row[:scorm_attempt_limit].to_i
+    result.scorm_enabled = %w(Yes y Y yes true TRUE 1).include? "#{row[:scorm_enabled]}".strip
+    result.scorm_time_delay_enabled = %w(Yes y Y yes true TRUE 1).include? "#{row[:scorm_time_delay_enabled]}".strip
+    result.scorm_attempt_limit = row[:scorm_attempt_limit].to_i
 
     result.plagiarism_warn_pct         = row[:plagiarism_warn_pct].to_i
     result.plagiarism_checks           = JSON.parse(row[:plagiarism_checks]) unless row[:plagiarism_checks].nil?
